@@ -6,3 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 test/e2e/reports
 selenium-debug.log
+_resource/
+resource/
+.idea/fileTemplates/
+.gitignore

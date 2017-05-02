@@ -17,37 +17,31 @@
   }
 </script>
 
-<style scoped>
-
-  .tab{
-    display:flex;
-    width:100%;
-    height:40px;
-    line-height:40px;
-    position:relative;
-  }
-  .tab:after{
-    position:absolute;
-    display:block;
-    content:'';
-    left:0;
-    bottom:0;
-    width:100%;
-    height:1px;
-    background-color:rgba(7,17,27,.1);
-    transform: scaleY(.5);
-  }
-  .tab .tab-item{
-    flex:1;
-    text-align:center;
-  }
-  .tab .tab-item> a{
-    display:block;
-    font-size:14px;
-    color:#4d555d;
-    font-weight:bold;
-  }
-  .tab .tab-item> a.tabActive{
-    color:rgb(140,20,20);
-  }
+<style lang="stylus" rel="stylesheet/stylus">
+  .tab
+    display flex
+    width 100%
+    height 40px
+    line-height 40px
+    position relative
+    &:after
+      position absolute
+      display block
+      content ''
+      left 0
+      bottom 0
+      width 100%
+      height 1px
+      background-color rgba(7,17,27,.1)
+      transform scaleY(.5)
+    .tab-item
+      flex 1
+      text-align center
+      & > a
+        display block
+        font-size 14px
+        color #4d555d
+        font-weight bold
+        &.tabActive
+          color:rgb(140,20,20);
 </style>

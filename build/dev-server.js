@@ -10,10 +10,10 @@ var path = require('path')
 var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
+var apiData = require('../data.json');
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
-
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false
@@ -40,6 +40,26 @@ compiler.plugin('compilation', function (compilation) {
     cb()
   })
 })
+//定义路由
+var apiRouter = express.Router();
+var reqData = {
+  errno:0,
+  msg:'数据请求成功',
+  data:{}
+}
+apiRouter.get('/goods',function (req,res) {
+  reqData.data = apiData.goods;
+  res.json(reqData);
+});
+apiRouter.get('/ratings',function (req,res) {
+  reqData.data = apiData.ratings;
+  res.json(reqData);
+});
+apiRouter.get('/seller',function (req,res) {
+  reqData.data = apiData.seller;
+  res.json(reqData);
+});
+app.use('/api',apiRouter);
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function (context) {

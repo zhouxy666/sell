@@ -3,11 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
-import Goods from '@/components/tab/goods'
-import Ratings from '@/components/tab/ratings'
-import Seller from '@/components/tab/seller'
+import VueResource from 'vue-resource'
+import Goods from '@/components/goods/goods'
+import Ratings from '@/components/ratings/ratings'
+import Seller from '@/components/seller/seller'
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
 /* eslint-disable no-new */
 
 const routes = [
