@@ -43,7 +43,6 @@
     },
     computed () {
       return {
-
       }
     },
     created () {
