@@ -1,8 +1,10 @@
 <template>
   <div>
-    <v-header></v-header>
-    <div>
+    <div class="wrapper">
+      <v-header></v-header>
       <v-tab></v-tab>
+    </div>
+    <div class="appcontent">
       <router-view></router-view>
     </div>
   </div>

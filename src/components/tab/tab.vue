@@ -24,6 +24,7 @@
     height 40px
     line-height 40px
     position relative
+    background #fff
     &:after
       position absolute
       display block

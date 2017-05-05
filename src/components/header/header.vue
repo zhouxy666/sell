@@ -90,11 +90,6 @@
       testInfo() {
         this.$alert(this.data.bulletin, '公告', {
           confirmButtonText: '确定'
-        }).then((action) => {
-          this.$message({
-            type: 'info',
-            message: `action:${action}`
-          })
         })
       }
     }
@@ -197,9 +192,6 @@
         bg-image('bulletin')
         background-repeat no-repeat
         background-size cover
-        /*img*/
-          /*height 12px*/
-          /*vertical-align middle*/
       .bullcontent
         font-size 10px
         width 300px
