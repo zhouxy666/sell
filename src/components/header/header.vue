@@ -8,21 +8,14 @@
         <div class="title">
           <span class="brand"></span>
           <span class="name" @click="testTitle">{{data.name}}</span>
-          <!--<el-button class="name" type="text" @click="testTitle">{{data.name}}</el-button>-->
         </div>
         <div class="des">
           <span class="decrcontent" @click="testDecs">{{data.description}} / 8分钟送达</span>
-          <!--<el-button type="text" class="descontent" @click="testDecs">{{data.description}} / 8分钟送达</el-button>-->
         </div>
         <div class="scale">
           <span class="decrease"></span>
           <span class="decrcontent" @click="testScale">{{data.supports[0].description}}</span>
-          <!--<el-button type="text" class="decrcontent" @click="testScale">{{data.supports[0].description}}</el-button>-->
-          <!--<el-button class="decrmore" type="text" @click="testSupports">-->
-            <!--<span>5个</span>-->
-            <!--<span>&gt;</span>-->
-          <!--</el-button>-->
-          <div class="decrmore" type="text" @click="testSupports">
+          <div class="decrmore" type="text" @click="showBulletin">
             <span>5个</span>
             <span class="el-icon-arrow-right"></span>
           </div>
@@ -32,18 +25,60 @@
     </div>
     <div class="info">
       <span class="bulletin"></span>
-      <!--<img src="./bulletin@3x.png">-->
-      <!--<el-button type="text" class="bullcontent" @click="testInfo">{{data.bulletin}}</el-button>-->
-      <span class="bullcontent" @click="testInfo">{{data.bulletin}}</span>
+      <span class="bullcontent">{{data.bulletin}}</span>
       <span class="more"><i class="el-icon-arrow-right"></i></span>
     </div>
     <div class="bg">
       <img :src="data.avatar" width="100%" height="100%">
     </div>
+    <transition name="fade">
+      <div class="detail" v-show="detailShow">
+        <div class="detail-wrapper">
+          <div class="detail-main clearfix">
+            <div class="detail-title">
+            <span class="name">
+              {{data.name}}
+            </span>
+            </div>
+            <div class="star-wrapper">
+              <star :size="48" :score="data.score"></star>
+            </div>
+            <div class="discount-wrapper">
+              <div class="discount-title">
+                <div class="dis-line border-1px"></div>
+                <div class="dis-info">
+                  <span>优惠信息</span>
+                </div>
+                <div class="dis-line border-1px"></div>
+              </div>
+              <div class="discount-detail" v-if="data.supports">
+                <p v-for="item in data.supports"><span class="dis-icon" :class="classMap[item.type]"></span>{{item.description}}</p>
+              </div>
+            </div>
+            <div class="bulletin-wrapper">
+              <div class="bulletin-title">
+                <div class="bulletin-line"></div>
+                <div class="bulletin-info">
+                  <span>商家公告</span>
+                </div>
+                <div class="bulletin-line"></div>
+              </div>
+              <div class="bulletin-detail">
+                <p>{{data.bulletin}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="detail-close">
+          <i class="el-icon-close" @click="detailClose"></i>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from '@/components/star/star'
   const ERR_OK = 0
   export default {
     data() {
@@ -52,7 +87,9 @@
           supports: [{
             description: ''
           }]
-        }
+        },
+        detailShow: false,
+        classMap: ['decrease', 'discount', 'special', 'invoice', 'guarantee']
       }
     },
     computed () {
@@ -87,11 +124,15 @@
           confirmButtonText: '确定'
         })
       },
-      testInfo() {
-        this.$alert(this.data.bulletin, '公告', {
-          confirmButtonText: '确定'
-        })
+      showBulletin() {
+        this.detailShow = true
+      },
+      detailClose() {
+        this.detailShow = false
       }
+    },
+    components: {
+      star
     }
   }
 </script>
@@ -215,4 +256,105 @@
       z-index -1
       filter blur(5px)
       overflow hidden
+  .detail
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    overflow auto
+    opacity 1
+    background rgba(7,17,27,.8)
+    z-index 100
+    backdrop-filter blur(10px)
+    &.fade-enter-active,&.fade-leave-active
+      transition all .3s ease
+    &.fade-enter,&.fade-leave-active
+      opacity 0
+      background rgba(7,17,27,0)
+    .detail-wrapper
+      min-height 100%
+      .detail-main
+        margin-top 64px
+        padding-bottom 64px
+        width 100%
+        .detail-title
+          text-align center
+          .name
+            font-size 16px
+            font-weight 700
+            color #fff
+            line-height 16px
+        .star-wrapper
+          text-align center
+          padding 16px 0 28px 0
+        .discount-wrapper
+          padding 0 36px
+          .discount-title
+            display flex
+            flex-direction row
+            align-items center
+            .dis-info
+              padding 0 12px
+              span
+                color #fff
+            .dis-line
+              flex 1
+              border-1px(rgba(255,255,255,.2))
+          .discount-detail
+            padding 24px 0 0 12px
+            p
+              padding-bottom 12px
+              color #fff
+              font-size 12px
+              font-weight 200
+              color #fff
+              line-height 12px
+              &:last-child
+                padding-bottom 0
+            .dis-icon
+              vertical-align top
+              display inline-block
+              width 16px
+              height 16px
+              margin-right 6px
+              background-size 16px 16px
+              background-repeat no-repeat
+              &.decrease
+                bg-image('decrease_3')
+              &.discount
+                bg-image('discount_3')
+              &.guarantee
+                bg-image('guarantee_3')
+              &.invoice
+                bg-image('invoice_3')
+              &.special
+                bg-image('special_3')
+        .bulletin-wrapper
+          padding 0 36px
+          .bulletin-title
+            padding 28px 0 24px 0
+            display flex
+            flex-direction row
+            align-items center
+            .bulletin-line
+              flex 1
+              border-1px(rgba(255,255,255,.2))
+            .bulletin-info
+              padding 0 12px
+              color #fff
+          .bulletin-detail
+            padding 0 12px
+            p
+              font-size 12px
+              font-weight 200
+              color #fff
+              line-height 24px
+    .detail-close
+      position relative
+      margin -64px auto 0 auto
+      width 32px
+      height 32px
+      font-size 32px
+      color rgba(255,255,255,.5)
 </style>

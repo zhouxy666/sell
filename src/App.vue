@@ -4,9 +4,9 @@
       <v-header></v-header>
       <v-tab></v-tab>
     </div>
-    <div class="appcontent">
+    <keep-alive>
       <router-view></router-view>
-    </div>
+    </keep-alive>
   </div>
 </template>
 

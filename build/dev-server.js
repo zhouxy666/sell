@@ -11,6 +11,7 @@ var express = require('express')
 var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var apiData = require('../data.json');
+var mapData = require('../yc.json');
 var webpackConfig = process.env.NODE_ENV === 'testing'
   ? require('./webpack.prod.conf')
   : require('./webpack.dev.conf')
@@ -59,6 +60,9 @@ apiRouter.get('/seller',function (req,res) {
   reqData.data = apiData.seller;
   res.json(reqData);
 });
+apiRouter.get('/map',function (req,res) {
+  res.json(mapData);
+})
 app.use('/api',apiRouter);
 
 // proxy api requests
