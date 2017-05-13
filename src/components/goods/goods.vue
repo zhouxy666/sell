@@ -24,39 +24,17 @@
                 <span class="details-name">{{food.name}}</span>
                 <span class="details-des">{{food.description}}</span>
                 <span class="details-sell">
-                <span class="sell-count">月销售{{goodsData[0].foods[0].sellCount}}份</span>
-                <span class="sell-rating">好评率{{goodsData[0].foods[0].rating}}%</span>
+                <span class="sell-count">月销售{{goodsData[0].foods[0].sellCount}}份</span><span class="sell-rating">好评率{{goodsData[0].foods[0].rating}}%</span>
               </span>
                 <span class="details-price">￥{{food.price}}</span>
+                <div class="cartcontrol-wrapper">
+                  <!--<cartcontrol></cartcontrol>-->
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
-      <!--<template v-for="good in goodsData">-->
-        <!--<div>-->
-          <!--<h1 class="goods-right-category">-->
-            <!--<span class="category-name">{{good.name}}</span>-->
-          <!--</h1>-->
-          <!--<template v-for="food in good.foods">-->
-            <!--<div class="goods-right-content">-->
-              <!--<div class="content-icon">-->
-                <!--<img :src="food.icon" width="60" heigeht="60">-->
-              <!--</div>-->
-              <!--<div class="content-details">-->
-                <!--<span class="details-name">{{food.name}}</span>-->
-                <!--<span class="details-des">{{food.description}}</span>-->
-                <!--<span class="details-sell">-->
-                  <!--<span class="sell-count">月销售{{goodsData[0].foods[0].sellCount}}份</span>-->
-                  <!--<span class="sell-rating">好评率{{goodsData[0].foods[0].rating}}%</span>-->
-                <!--</span>-->
-                <!--<span class="details-price">￥{{food.price}}</span>-->
-              <!--</div>-->
-            <!--</div>-->
-            <!--<div class="goods-right-line"></div>-->
-          <!--</template>-->
-        <!--</div>-->
-      <!--</template>-->
     </div>
     <shopcart></shopcart>
   </div>
@@ -65,6 +43,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import shopcart from '@/components/shopcart/shopcart'
+//  import cartcontrol from '@/components/cartcontrol/cartcontrol'
   const ERR_OK = 0
   export default {
     data () {
@@ -87,7 +66,7 @@
       }
     },
     created() {
-      this.classMap = ['decrease', 'discounte', 'special', 'invoice', 'guarantee']
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
       this.$http.get('/api/goods').then((res) => {
         if (res.body.errno === ERR_OK) {
           console.log('height', this.$refs['menuScroll'].offsetHeight)
@@ -116,9 +95,6 @@
         })
         this.foodScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
-//          console.log('--------------------------')
-//          console.log('当前的y值为：' + this.scrollY)
-//          console.log('区间为：' + this.listHeight)
         })
       },
       _calculateHeight() {
@@ -134,6 +110,7 @@
     },
     components: {
       shopcart
+//      cartcontrol
     }
   }
 </script>
@@ -238,6 +215,10 @@
             line-height 24px
             font-weight 700
             color #f01414
+        /*.cartcontrol-wrapper*/
+            /*position: absolute*/
+            /*right: 0*/
+            /*bottom: 12px*/
       .goods-right-line
         height 1px
         background rgba(7,17,27,.1)
