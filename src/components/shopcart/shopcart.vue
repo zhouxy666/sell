@@ -7,32 +7,73 @@
               <i class="el-icon-share"></i>
             </div>
           </div>
-          <div v-show="isTotalCount" class="num">99</div>
+          <div v-show="isTotalCount" class="num">{{totalCount}}</div>
         </div>
         <div class="price">
-          <span class="text" :class="{'hightlight':totalCount>0}">￥{{totalCount}}</span>
+          <span class="text" :class="{'hightlight':totalCount>0}">￥{{totalPrice}}</span>
         </div>
         <div class="desc">
-          <span>另外需配送费用￥20元</span>
+          <span>配送费用￥{{deliveryPrice}}元</span>
         </div>
       </div>
-      <div class="shop-right">
-        <span class="pay">￥20元起</span>
+      <div class="shop-right" :class="{'paying':isPay}" @click.stop.prevent="gopay">
+        <span class="pay">{{payDesc}}</span>
       </div>
     </div>
 </template>
 
 <script type="text/ecmascript-6">
   export default {
-    data() {
-      return {
-        totalCount: 10
+    props: {
+      selectFoods: {
+        type: Array,
+        default() {
+          return []
+        }
+      },
+      deliveryPrice: {
+        type: Number,
+        default: 0
+      },
+      minPrice: {
+        type: Number,
+        default: 0
       }
     },
     computed: {
       isTotalCount() {
         if (this.totalCount > 0) return true
         return false
+      },
+      totalCount() {
+        let count = 0
+        this.selectFoods.forEach((food) => {
+          count += food.count
+        })
+        return count
+      },
+      totalPrice() {
+        let total = 0
+        this.selectFoods.forEach((food) => {
+          total += food.price * food.count
+        })
+        return total
+      },
+      payDesc() {
+        let payDiff = Number(this.totalPrice - this.minPrice)
+        if (payDiff < 0) return '还差￥' + Math.abs(payDiff) + '元起送'
+        if (payDiff >= 0) return '去结算'
+      },
+      isPay() {
+        let payDiff = Number(this.totalPrice - this.minPrice)
+        if (payDiff < 0) return false
+        if (payDiff >= 0) return true
+      }
+    },
+    methods: {
+      gopay() {
+        if (Number(this.totalPrice - this.minPrice) >= 0) alert(this.totalPrice)
+        return
       }
     }
   }
@@ -80,13 +121,13 @@
               color #fff
         .num
           position absolute
-          width 24px
+          width 20px
           padding 0 6px
           background rgb(240,20,20)
           border-radius 12px
           box-shadow 0 4px 8px 0 rgba(0,0,0,.4)
-          left 32px
-          top -10px
+          left 35px
+          top -12px
           font-size 9px
           font-weight 700
           color #fff
@@ -115,18 +156,23 @@
         color rgba(255,255,255,.4)
         font-weight 700
     .shop-right
-      flex 0 0 105px
-      width 105px
+      flex 0 0 110px
+      width 110px
       background #2B333B
       text-align center
       .pay
         height: 48px
         line-height: 48px
         text-align: center
-        font-size: 12px
+        font-size: 10px
         font-weight: 700
         padding 0 12px
         color rgba(255,255,255,.4)
         &.hightlight
+          color #fff
+      &.paying
+        background green
+        .pay
+          font-size 14px
           color #fff
 </style>

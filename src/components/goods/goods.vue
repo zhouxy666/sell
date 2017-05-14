@@ -36,7 +36,7 @@
         </li>
       </ul>
     </div>
-    <shopcart></shopcart>
+    <shopcart :deliveryPrice="sellerData.deliveryPrice" :minPrice="sellerData.minPrice" :selectFoods="selectFoods"></shopcart>
   </div>
 </template>
 
@@ -48,6 +48,7 @@
   export default {
     data () {
       return {
+        sellerData: {},
         goodsData: [],
         listHeight: [],
         scrollY: 0
@@ -63,19 +64,27 @@
           }
         }
         return 0
+      },
+      selectFoods() {
+        return [{price: 12, count: 9}, {price: 9, count: 1}]
       }
     },
     created() {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
       this.$http.get('/api/goods').then((res) => {
         if (res.body.errno === ERR_OK) {
-          console.log('height', this.$refs['menuScroll'].offsetHeight)
           this.goodsData = res.body.data
           this.$nextTick(() => {
             this._initScroll()
             this._calculateHeight()
           })
         }
+      }).then(() => {
+        this.$http.get('/api/seller').then((res) => {
+          if (res.body.errno === ERR_OK) {
+            this.sellerData = res.body.data
+          }
+        })
       })
     },
     methods: {
