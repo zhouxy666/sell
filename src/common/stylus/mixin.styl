@@ -1,14 +1,23 @@
+$rem = 50
 bg-image($url)
   background-image: url($url+"@2x.png")
   @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
     background-image: url($url+"@3x.png")
 border-1px($color)
-  &:after
+  position relative
+  &::after
+    position absolute
+    bottom 0
+    left 0
+    width 100%
     content ''
     display inline-block
-    height 1px
+    border-top 1px solid $color
     background $color
     @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3)
       transform scaleY(.3)
     @media (-webkit-min-device-pixel-ratio: 2),(min-device-pixel-ratio: 2)
       transform scaleY(.5)
+border-none()
+  &:after
+    display: none

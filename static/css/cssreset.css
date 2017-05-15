@@ -42,7 +42,9 @@ footer,header,hgroup,menu,nav,section,summary {
 nav ul {
   list-style:none;
 }
-
+ul li{
+  list-style:none;
+}
 blockquote, q {
   quotes:none;
 }
