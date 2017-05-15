@@ -24,11 +24,11 @@
                 <span class="details-name">{{food.name}}</span>
                 <span class="details-des">{{food.description}}</span>
                 <span class="details-sell">
-                <span class="sell-count">月销售{{goodsData[0].foods[0].sellCount}}份</span><span class="sell-rating">好评率{{goodsData[0].foods[0].rating}}%</span>
+                <span class="sell-count">月销售{{food.sellCount}}份</span><span class="sell-rating">好评率{{food.rating}}%</span>
               </span>
                 <span class="details-price">￥{{food.price}}</span>
                 <div class="cartcontrol-wrapper">
-                  <!--<cartcontrol></cartcontrol>-->
+                  <cartcontrol :food="food"></cartcontrol>
                 </div>
               </div>
             </li>
@@ -43,7 +43,8 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import shopcart from '@/components/shopcart/shopcart'
-//  import cartcontrol from '@/components/cartcontrol/cartcontrol'
+  import cartcontrol from '@/components/cartcontrol/cartcontrol'
+
   const ERR_OK = 0
   export default {
     data () {
@@ -66,7 +67,17 @@
         return 0
       },
       selectFoods() {
-        return [{price: 12, count: 9}, {price: 9, count: 1}]
+        let selectData = []
+        this.goodsData.forEach((good) => {
+          good.foods.forEach((food) => {
+            let temp = {}
+            temp.price = food.price
+            temp.count = food.count || 0
+            selectData.push(temp)
+          })
+        })
+        return selectData
+//        return [{price: 12, count: 9}, {price: 9, count: 1}]
       }
     },
     created() {
@@ -100,6 +111,7 @@
           click: true
         })
         this.foodScroll = new BScroll(this.$refs.foodScroll, {
+          click: true,
           probeType: 3
         })
         this.foodScroll.on('scroll', (pos) => {
@@ -118,8 +130,8 @@
       }
     },
     components: {
-      shopcart
-//      cartcontrol
+      shopcart,
+      cartcontrol
     }
   }
 </script>
@@ -214,20 +226,25 @@
             color rgb(147,153,159)
             line-height 14px
           .details-sell
-            font-size 10px
+            font-size 0
             color rgb(147,153,159)
             line-height 10px
             .sell-count
-              margin-right 12px
+              font-size 10px
+              margin-right 10px
+              display inline-block
+            .sell-rating
+              font-size 10px
+              display inline-block
           .details-price
             font-size 14px
             line-height 24px
             font-weight 700
             color #f01414
-        /*.cartcontrol-wrapper*/
-            /*position: absolute*/
-            /*right: 0*/
-            /*bottom: 12px*/
+        .cartcontrol-wrapper
+          position absolute
+          bottom 10px
+          right 0
       .goods-right-line
         height 1px
         background rgba(7,17,27,.1)

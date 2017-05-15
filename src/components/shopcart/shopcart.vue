@@ -1,8 +1,9 @@
 <template>
+  <div>
     <div class="shopcart">
       <div class="shop-left">
         <div class="logo-wrapper">
-          <div class="logo-outer">
+          <div class="logo-outer" @click="foldList">
             <div class="logo-inner" :class="{'hightlight':totalCount>0}">
               <i class="el-icon-share"></i>
             </div>
@@ -20,10 +21,18 @@
         <span class="pay">{{payDesc}}</span>
       </div>
     </div>
+    <transition name="fade">
+      <div class="list-mask" v-show="hideList" @click="closeList"></div>
+    </transition>
+  </div>
 </template>
-
 <script type="text/ecmascript-6">
   export default {
+    data() {
+      return {
+        isFoldList: false
+      }
+    },
     props: {
       selectFoods: {
         type: Array,
@@ -61,6 +70,7 @@
       },
       payDesc() {
         let payDiff = Number(this.totalPrice - this.minPrice)
+        if (this.totalPrice === 0) return `￥${this.minPrice}元起送`
         if (payDiff < 0) return '还差￥' + Math.abs(payDiff) + '元起送'
         if (payDiff >= 0) return '去结算'
       },
@@ -68,12 +78,21 @@
         let payDiff = Number(this.totalPrice - this.minPrice)
         if (payDiff < 0) return false
         if (payDiff >= 0) return true
+      },
+      hideList() {
+        return this.isFoldList
       }
     },
     methods: {
       gopay() {
         if (Number(this.totalPrice - this.minPrice) >= 0) alert(this.totalPrice)
         return
+      },
+      foldList() {
+        if (this.totalCount > 0) this.isFoldList = true
+      },
+      closeList() {
+        this.isFoldList = false
       }
     }
   }
@@ -87,6 +106,7 @@
     bottom 0
     left 0
     width 100%
+    z-index 50
     .shop-left
       flex 1
       background #141d27
@@ -166,7 +186,7 @@
         text-align: center
         font-size: 10px
         font-weight: 700
-        padding 0 12px
+        padding 0 6px
         color rgba(255,255,255,.4)
         &.hightlight
           color #fff
@@ -175,4 +195,19 @@
         .pay
           font-size 14px
           color #fff
+  .list-mask
+    position fixed
+    width 100%
+    height 100%
+    opacity 1
+    background rgba(7,17,27,.6)
+    backdrop-filter blur(10px)
+    top 0
+    left 0
+    z-index 40
+    &.fade-enter-active,&.fade-leave-active
+      transition all .4s
+    &.fade-enter,&.fade-leave-active
+      opacity 0
+      background rgba(7,17,27,0)
 </style>
