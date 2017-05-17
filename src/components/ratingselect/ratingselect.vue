@@ -1,7 +1,7 @@
 <template>
     <div class="food-rating">
       <div class="rating-title">
-        <span>商品评价</span>
+        <span>{{rateTitle}}</span>
       </div>
       <div class="rating-category">
         <ul>
@@ -32,17 +32,35 @@
   const ALL = 2
   export default {
     props: {
+      rateTitle: {
+        type: String,
+        default: '客人评价'
+      },
       rateType: {
-        type: Number
+        type: Number,
+        default() {
+          return ALL
+        }
       },
       onlyContent: {
-        type: Boolean
+        type: Boolean,
+        defalut: true
       },
       ratings: {
-        type: Array
+        type: Array,
+        default() {
+          return []
+        }
       },
       des: {
-        type: Object
+        type: Object,
+        default() {
+          return {
+            all: '全部',
+            positive: '满意',
+            negative: '不满意'
+          }
+        }
       }
     },
     computed: {

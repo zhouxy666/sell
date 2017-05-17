@@ -66,10 +66,10 @@
           bg-image('star24_off')
     &.star-36
       .star-item
-        width 15px
-        height 15px
-        margin-right 16px
-        background-size 15px 15px
+        width rem(30)
+        height rem(30)
+        margin-right rem(12)
+        background-size rem(30) rem(30)
         &:last-child
           margin-right 0
         &.on

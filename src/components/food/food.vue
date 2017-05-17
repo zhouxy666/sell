@@ -29,14 +29,22 @@
             <span class="price-old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
           </div>
         </div>
-        <div class="food-line"></div>
+        <split></split>
         <div class="food-desc">
           <span class="desc-title">商品介绍</span>
           <span class="desc-content">{{food.info}}</span>
         </div>
-        <div class="food-line"></div>
+        <split></split>
         <div class="rating-wrapper">
-          <ratingselect :rateType="rateType" :onlyContent="onlyContent" :ratings="food.ratings" :des="des" @select="selectRating" @toggle="toggleContent"></ratingselect>
+          <ratingselect
+            :rateTitle="rateTitle"
+            :rateType="rateType"
+            :onlyContent="onlyContent"
+            :ratings="food.ratings"
+            :des="des"
+            @select="selectRating"
+            @toggle="toggleContent">
+          </ratingselect>
         </div>
         <div class="rating-infos">
           <ul>
@@ -70,9 +78,10 @@
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
+  import Vue from 'vue'
   import cartcontrol from '@/components/cartcontrol/cartcontrol'
   import ratingselect from '@/components/ratingselect/ratingselect'
-  import Vue from 'vue'
+  import split from '@/components/split/split'
   const Util = require('@/common/js/util')
 
   const ALL = 2
@@ -84,6 +93,7 @@
     },
     data() {
       return {
+        rateTitle: '商品评价',
         showFlag: false,
         rateStyle: ['icon-thumbs-up', 'icon-thumbs-down'],
         rateTime: 0,
@@ -152,7 +162,8 @@
     },
     components: {
       cartcontrol,
-      ratingselect
+      ratingselect,
+      split
     }
   }
 </script>
@@ -239,11 +250,6 @@
           font-weight 700
           color #93999F
           line-height rem(48)
-    .food-line
-      height rem(32)
-      background #f3f5f7
-      border-top 1px solid rgba(7,17,27,.1)
-      border-bottom 1px solid rgba(7,17,27,.1)
     .food-desc
       font-size 0
       padding rem(36)
