@@ -1,42 +1,45 @@
 <template>
-  <div class="goods-wrapper">
-    <div class="menu-wrapper" ref="menuScroll">
-      <ul>
-        <li v-for="(item,index) in goodsData" class="menu-item" :class="{'current':currentIndex === index}" @click="selectMenu(index,$event)">
+  <div>
+    <div class="goods-wrapper">
+      <div class="menu-wrapper" ref="menuScroll">
+        <ul>
+          <li v-for="(item,index) in goodsData" class="menu-item" :class="{'current':currentIndex === index}" @click="selectMenu(index,$event)">
           <span class="text border-1px">
             <span v-show="item.type>0" class="icon" :class="classMap[item.type]"></span>{{item.name}}
           </span>
-        </li>
-      </ul>
-    </div>
-    <div class="foods-wrapper" ref="foodScroll">
-      <ul>
-        <li v-for="good in goodsData" class="food-list" ref="foodList">
-          <h1 class="goods-right-category">
-            <span class="category-name">{{good.name}}</span>
-          </h1>
-          <ul>
-            <li v-for="food in good.foods" class="food-item border-1px">
-              <div class="content-icon">
-                <img :src="food.icon" width="60" heigeht="60">
-              </div>
-              <div class="content-details">
-                <span class="details-name">{{food.name}}</span>
-                <span class="details-des">{{food.description}}</span>
-                <span class="details-sell">
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrapper" ref="foodScroll">
+        <ul>
+          <li v-for="good in goodsData" class="food-list" ref="foodList">
+            <h1 class="goods-right-category">
+              <span class="category-name">{{good.name}}</span>
+            </h1>
+            <ul>
+              <li v-for="food in good.foods" class="food-item border-1px" @click="selecFood(food,$event)" lid="456">
+                <div class="content-icon">
+                  <img :src="food.icon" width="60" heigeht="60">
+                </div>
+                <div class="content-details">
+                  <span class="details-name">{{food.name}}</span>
+                  <span class="details-des">{{food.description}}</span>
+                  <span class="details-sell">
                 <span class="sell-count">月销售{{food.sellCount}}份</span><span class="sell-rating">好评率{{food.rating}}%</span>
               </span>
-                <span class="details-price">￥{{food.price}}</span>
-                <div class="cartcontrol-wrapper">
-                  <cartcontrol :food="food"></cartcontrol>
+                  <span class="details-price">￥{{food.price}}</span>
+                  <div class="cartcontrol-wrapper">
+                    <cartcontrol :food="food"></cartcontrol>
+                  </div>
                 </div>
-              </div>
-            </li>
-          </ul>
-        </li>
-      </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <shopcart :deliveryPrice="sellerData.deliveryPrice" :minPrice="sellerData.minPrice" :selectFoods="selectFoods"></shopcart>
     </div>
-    <shopcart :deliveryPrice="sellerData.deliveryPrice" :minPrice="sellerData.minPrice" :selectFoods="selectFoods"></shopcart>
+    <food ref="food" :food="selectedFood"></food>
   </div>
 </template>
 
@@ -44,6 +47,7 @@
   import BScroll from 'better-scroll'
   import shopcart from '@/components/shopcart/shopcart'
   import cartcontrol from '@/components/cartcontrol/cartcontrol'
+  import food from '@/components/food/food'
 
   const ERR_OK = 0
   export default {
@@ -52,7 +56,8 @@
         sellerData: {},
         goodsData: [],
         listHeight: [],
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: {}
       }
     },
     computed: {
@@ -70,14 +75,12 @@
         let selectData = []
         this.goodsData.forEach((good) => {
           good.foods.forEach((food) => {
-            let temp = {}
-            temp.price = food.price
-            temp.count = food.count || 0
-            selectData.push(temp)
+            if (food.count) {
+              selectData.push(food)
+            }
           })
         })
         return selectData
-//        return [{price: 12, count: 9}, {price: 9, count: 1}]
       }
     },
     created() {
@@ -127,11 +130,20 @@
           height += item.clientHeight + 18
           this.listHeight.push(height)
         }
+      },
+      selecFood(food, event) {
+        if (!event._constructed) {
+          return
+        }
+//        console.log(event)
+        this.selectedFood = food
+        this.$refs.food.show()
       }
     },
     components: {
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     }
   }
 </script>
@@ -146,6 +158,7 @@
     width 100%
     bottom 46px
     overflow hidden
+    font-size rem(12px)
     .menu-wrapper
       flex 0 0 80px
       width 80px

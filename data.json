@@ -71,16 +71,58 @@
             },
             {
               "username": "2******3",
-              "rateTime": 1469271264000,
+              "rateTime": 1494993804486,
               "rateType": 0,
-              "text": "",
+              "text": "一般般了，还没我妈做的好喝",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1494993838854,
+              "rateType": 1,
+              "text": "很喜欢的粥",
               "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             },
             {
               "username": "3******b",
               "rateTime": 1469261964000,
               "rateType": 1,
-              "text": "",
+              "text": "很喜欢的粥",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 1,
+              "text": "很喜欢的粥",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 0,
+              "text": "不咋样",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 0,
+              "text": "难喝死了，不来了",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 1,
+              "text": "好喝极了，下次还来",
+              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+            },
+            {
+              "username": "3******b",
+              "rateTime": 1469261964000,
+              "rateType": 1,
+              "text": "GOOD",
               "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
             }
           ],
@@ -94,29 +136,7 @@
           "description": "",
           "sellCount": 188,
           "rating": 96,
-          "ratings": [
-            {
-              "username": "3******c",
-              "rateTime": 1469281964000,
-              "rateType": 0,
-              "text": "",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            },
-            {
-              "username": "2******3",
-              "rateTime": 1469271264000,
-              "rateType": 0,
-              "text": "",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            },
-            {
-              "username": "3******b",
-              "rateTime": 1469261964000,
-              "rateType": 1,
-              "text": "",
-              "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
-            }
-          ],
+          "ratings": [],
           "info": "",
           "icon": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/114/h/114",
           "image": "http://fuss10.elemecdn.com/c/6b/29e3d29b0db63d36f7c500bca31d8jpeg.jpeg?imageView2/1/w/750/h/750"

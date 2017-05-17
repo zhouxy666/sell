@@ -142,6 +142,7 @@
   .header-wrap
     position relative
     background rgba(7,17,27,.5)
+    font-size rem(12)
     .header
       padding 24px 12px 18px 24px
       font-size 0

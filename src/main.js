@@ -9,7 +9,7 @@ import AMap from 'vue-amap'
 import Goods from '@/components/goods/goods'
 import Ratings from '@/components/ratings/ratings'
 import Seller from '@/components/seller/seller'
-
+import Food from '@/components/food/food'
 import 'common/stylus/index.styl'
 
 Vue.use(VueRouter)
@@ -29,7 +29,8 @@ AMap.initAMapApiLoader({
 const routes = [
   {path: '/goods', component: Goods},
   {path: '/ratings', component: Ratings},
-  {path: '/seller', component: Seller}
+  {path: '/seller', component: Seller},
+  {path: '/food', component: Food}
 ]
 const router = new VueRouter({
   routes,
