@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
     <link rel="stylesheet" href="./static/css/cssreset.css">
     <script>
+      (function () {
+        var desginWidth = 750;
+        var fontSize = 100;
+        var html = document.documentElement;
+        var htmlWidth = html.getBoundingClientRect().width;
+        html.style.fontSize = (htmlWidth/desginWidth)*fontSize + "px"
+      })()
     </script>
     <title>sell</title>
   </head>
